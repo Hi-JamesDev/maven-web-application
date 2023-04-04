@@ -95,19 +95,19 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>My Releases Nexus Repository</name>
-	      <url>http://54.235.60.239:8081/repository/PayPal-web-releases/</url>
+	      <url>http://3.86.161.15:8081/repository/Google-releases/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>My Snapshots Nexus Repository</name>
-	      <url>http://54.235.60.239:8081/repository/PayPal-web-snapshots/</url>
+	      <url>http://3.86.161.15:8081/repository/Google-snapshots/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
 	
 	<build>
-		<finalName>paypal-web-app</finalName>
+		<finalName>Google-web-app</finalName>
 		
 		<plugins>
 			<plugin>
