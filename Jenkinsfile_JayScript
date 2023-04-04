@@ -1,0 +1,34 @@
+node{
+    def mavenHome = tool name: 'maven3.9.1'
+    stage('1.GitClone'){
+    git 'https://github.com/Hi-JamesDev/maven-web-application'
+    }
+    stage('2.Test&Build'){
+        sh "${mavenHome}/bin/mvn package"
+    }
+    stage('3.QualityCodeAnalysis'){
+        sh "${mavenHome}/bin/mvn sonar:sonar"
+    }
+    stage('4.UploadArtifacts2UAT'){
+       sh "${mavenHome}/bin/mvn deploy"
+    }
+    stage('5.Deploy2UAT'){
+    deploy adapters: [tomcat9(credentialsId: 'tomcat_credentials', path: '', url: 'http://100.24.237.15:8177/')], contextPath: null, war: 'target/*war'
+    }
+    stage('6.Approval'){
+        sh "echo 'ready for review' "
+        timeout(time:5, units:'Hours') {
+        input message: 'Application now ready for deployment, please look through for approval'
+    }
+    }
+    stage('7.Deploy2Prod'){
+        sh "echo 'rolling out for release' "
+    deploy adapters: [tomcat9(credentialsId: 'tomcat_credentials', path: '', url: 'http://100.24.237.15:8177/')], contextPath: null, war: 'target/*war'
+    }
+    stage('8.EmailNotification') {
+      emailext body: 'The application is live now. Please look at it and share with your clients', recipientProviders: [buildUser(), contributor()], subject: 'Success of project', to: 'jamesokuneye@yahoo.com'  
+    }
+}
+
+
+
