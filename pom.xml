@@ -107,7 +107,7 @@
 	</distributionManagement>
 	
 	<build>
-		<finalName>Google-web-app</finalName>
+		<finalName>My-Pipe</finalName>
 		
 		<plugins>
 			<plugin>
